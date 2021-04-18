@@ -223,7 +223,7 @@ numeric_to_verbose(unsigned int octal) {
   char* write_str = "write";
   char* exec_str = "execute";
 
-  char* buff_str = calloc(15, sizeof(char));
+  char* buff_str = calloc(22, sizeof(char));
 
   /* Bad but works */
   if (octal & 04) strcpy(buff_str, read_str);
