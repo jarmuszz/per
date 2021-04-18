@@ -1,0 +1,35 @@
+per - Simple unix permission viewer and converter
+
+per is a simple utility that can verbosely print unix permissions and
+convert between symbolic and numeric notations and vice-versa.
+
+Synopsis:
+per [OPTIONS] TARGET
+
+OPTIONS:
+  -v      Print permissions verbosely.
+  -n      Print permissions in a numeric notation.
+  -s      Print permissions in a symbolic notation.
+Options may be chained (e.g. -vns). Providing no options defaults to -vns.
+
+TARGET may be:
+  * A symbolic notation (e.g. rwxr-xr-x)
+  * A numeric notation (e.g. 755)
+  * A file (e.g. /etc/passwd)
+
+Special notations (sticky bits etc.) are currently not supported but they will
+be in the future.
+
+Building:
+Build deps: GNU make
+Run `make' (`gmake' on non-GNU systems) and wait a sec. The build will
+produce a binary called `per' which you can copy to somewhere into
+your $PATH (e.g cp per /usr/sbin/). Building was tested on OpenBSD and
+Artix GNU/Linux but should also work on different system (including
+different *BSDs). You can also compile it by hand, in GNU/Linux
+systems you have to pass `-lbsd' into your compiler in order to do
+this.
+
+
+Bugs report to the github repo.
+Made by jarmuszz (jarmusz at tuta dot io).
