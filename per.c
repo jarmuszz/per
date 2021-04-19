@@ -7,9 +7,11 @@
  */
 
 #if defined(__linux__)
-#include <bsd/err.h>
+#include <error.h>
+#define ERR(eval, fmt, ...) error(eval, fmt, __VA_ARGS__)
 #elif defined(__unix__)
 #include <err.h>
+#define ERR(eval, fmt, ...) errc(eval, fmt, __VA_ARGS__)
 #endif
 
 #include <errno.h>
@@ -156,7 +158,7 @@ new_perm_from_value(char *target, _Bool specialp) {
 
   /* Exit if ``NUMERIC'' is negative or is longer than ``BITN'' bits  */
   if (numeric < 0 || (numeric >> bitn) != 0) 
-    errc(1, EINVAL, "Invalid number");
+    ERR(1, EINVAL, "Invalid number");
 
   /* Checking if there weren't any strings in ``TARGET''
      i.e. runs if ``TARGET'' is a number. */
@@ -181,7 +183,7 @@ new_perm_from_value(char *target, _Bool specialp) {
     perm->symbolic = target;
   }
 
-  else errc(1, EINVAL, "Invalid option \"%s\"", target);
+  else ERR(1, EINVAL, "Invalid option \"%s\"", target);
 
   return perm;
 } /* End of new_perm_from_value() */

@@ -22,7 +22,6 @@ be in the future.
 
 Building:
 Build deps: GNU make
-Runtime deps: (only on GNU/Linux) libbsd
 Run `make' (`gmake' on non-GNU systems) and wait a sec. The build will
 produce a binary called `per' which you can copy to somewhere into
 your $PATH (e.g cp per /usr/sbin/). Building was tested on OpenBSD and
