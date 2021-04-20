@@ -7,15 +7,20 @@ Synopsis:
 per [OPTIONS] TARGET
 
 OPTIONS:
+  -S      Treat notations as special notations.
   -v      Print permissions verbosely.
   -n      Print permissions in a numeric notation.
   -s      Print permissions in a symbolic notation.
 Options may be chained (e.g. -vns). Providing no options defaults to -vns.
+Providing only -S as an option defaults to -Svns.
 
 TARGET may be:
   * A symbolic notation (e.g. rwxr-xr-x)
   * A numeric notation (e.g. 755)
   * A file (e.g. /etc/passwd)
+
+If -S option is used, par will accept and print special notations (e.g.
+rwsrwsrwT or 6775).
 
 Special notations (sticky bits etc.) are currently not supported but they will
 be in the future.

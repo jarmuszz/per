@@ -1,5 +1,5 @@
-CC=cc
-CFLAGS=-O2 -std=c99 -Wall
+CC=gcc
+CFLAGS=-O2 -std=c99 -Wall -Wextra
 DEBUG=false
 BIN=per
 
