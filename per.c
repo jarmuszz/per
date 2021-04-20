@@ -138,7 +138,10 @@ expt(int x, unsigned int exp) {
 
 /* Printing Functions */
 void
-print_numeric(Perm *perm) { printf("%o\n", perm->numeric); }
+print_numeric(Perm *perm) {
+  if (specialp) printf("%04o\n", perm->numeric); 
+  else          printf("%03o\n", perm->numeric); 
+}
 
 void
 print_symbolic(Perm *perm) { printf("%s\n", perm->symbolic); }
