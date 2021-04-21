@@ -22,9 +22,6 @@ TARGET may be:
 If -S option is used, par will accept and print special notations (e.g.
 rwsrwsrwT or 6775).
 
-Special notations (sticky bits etc.) are currently not supported but they will
-be in the future.
-
 Building:
 Build deps: GNU make
 Run `make' (`gmake' on non-GNU systems) and wait a sec. The build will
