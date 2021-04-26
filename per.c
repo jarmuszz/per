@@ -91,7 +91,7 @@ new_perm_from_value(char *target) {
 
   /* Exit if ``NUMERIC'' is negative or is longer than ``BITN'' bits  */
   if (numeric < 0 || (numeric >> bitn) != 0) 
-    ERR(1, EINVAL, "%lo", numeric);
+    ERR(1, EINVAL, "Incorrect numeric notation");
 
   /* Checking if there weren't any strings in ``TARGET''
      i.e. runs if ``TARGET'' is a number. */
