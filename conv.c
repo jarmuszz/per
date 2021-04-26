@@ -11,6 +11,7 @@ numeric_to_symbolic(uint16_t num) {
     symbolic[i] = (num & (1 << (8-i))) ? chars[i] : '-';
   }
 
+  /* Once I knew what it all meant */
   if (specialp) {
     for (unsigned int i = 0; i < 3; i++) {
       if (num & (1 << (11 - i))) {

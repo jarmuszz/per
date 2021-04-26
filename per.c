@@ -43,7 +43,7 @@ main(int argc, char **argv) {
   }
 
   /* Allocate space for permissions converted into a struct */
-  Perm * perm = malloc(sizeof(Perm));
+  Perm *perm = calloc(1, sizeof(Perm));
 
   /* Switch options */
   int option;
@@ -85,7 +85,8 @@ new_perm_from_value(char *target) {
   if (specialp) bitn = 12;
   else          bitn = 9;
   
-  Perm *perm = malloc(sizeof(Perm));
+  /* calloc will set mem to 0 */
+  Perm *perm = calloc(1, sizeof(Perm));
   char *endptr;
   long numeric = strtol(target, &endptr, 8);
 
