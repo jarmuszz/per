@@ -26,10 +26,10 @@ Building:
 Build deps: GNU make
 Run `make' (`gmake' on non-GNU systems) and wait a sec. The build will
 produce a binary called `per' which you can copy to somewhere into
-your $PATH (e.g cp per /usr/sbin/). Building was tested on OpenBSD,
-Artix GNU/Linux and NixOS (thanks Legend!) but should also work on
-different system (including different *BSDs). You can also compile it
-by hand, it's c99.
+your $PATH (e.g cp per /usr/sbin/). Building works on OpenBSD, Artix
+GNU/Linux, NixOS (thanks Legend!) and macOS (thanks grylem!) but should
+also work on different system (including different *BSDs). You can
+also compile it by hand, it's c99.
 
 Bugs report to the github repo.
 Made by jarmuszz (jarmusz at tuta dot io).
