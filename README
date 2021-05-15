@@ -19,7 +19,7 @@ TARGET may be:
   * A numeric notation (e.g. 755)
   * A file (e.g. /etc/passwd)
 
-If -S option is used, par will accept and print special notations (e.g.
+If -S option is used, per will accept and print special notations (e.g.
 rwsrwsrwT or 6775).
 
 Building:
