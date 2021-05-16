@@ -25,7 +25,7 @@ symbolicp(char *str) {
   char chars_spec[] = "sst";
   char chars_spec_upp[] = "SST";
 
-  if (strlen(str) > 9) ERR(1, EINVAL, "%s", str);
+  if (strlen(str) != 9) ERR(1, EINVAL, "%s", str);
 
   if (specialp) {
     for (unsigned int i = 0; i <= strlen(str)-1; i++) {

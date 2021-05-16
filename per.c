@@ -31,19 +31,27 @@ main(int argc, char **argv) {
   /* If only one arg is supplied
    * respawn with `-vns' */
   if (argc == 2) {
-    char* argv_respawn[] = {argv[0], "-vns", argv[1], NULL };
+    char *argv_respawn[] = { argv[0], "-vns", argv[1], NULL };
     execvp(argv[0], argv_respawn);
   }
 
   /* The same as above but runs when
    * only `-S' is passed */
   if (argc == 3 && (strcmp(argv[1], "-S")) == 0) {
-    char* argv_respawn[] = {argv[0], "-Svns", argv[2], NULL };
+    char *argv_respawn[] = { argv[0], "-Svns", argv[2], NULL };
     execvp(argv[0], argv_respawn);
   }
 
   /* Allocate space for permissions converted into a struct */
   Perm *perm = calloc(1, sizeof(Perm));
+
+  /* Cleaner syntax */
+  char *target = argv[argc-1];
+
+  /* If targer is a `-', read target from stdin */
+  if (strcmp(target, "-") == 0) {
+    fscanf(stdin, "%s", target);
+  }
 
   /* Switch options */
   int option;
@@ -53,15 +61,15 @@ main(int argc, char **argv) {
         specialp = TRUE;
         break;
       case 'n':
-        if (!perm->initialized) perm = new_perm_from_value(argv[argc-1]);
+        if (!perm->initialized) perm = new_perm_from_value(target);
         print_numeric(perm);
         break;
       case 's':
-        if (!perm->initialized) perm = new_perm_from_value(argv[argc-1]);
+        if (!perm->initialized) perm = new_perm_from_value(target);
         print_symbolic(perm);
         break;
       case 'v':
-        if (!perm->initialized) perm = new_perm_from_value(argv[argc-1]);
+        if (!perm->initialized) perm = new_perm_from_value(target);
         print_verbose(perm);
         break;
       case 'h':

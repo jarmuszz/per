@@ -1,0 +1,56 @@
+.TH per 1 "May 2021" "" "May 2021"
+.SH NAME
+per - Simple unix permission viewer and converter
+
+.SH SYNOPSIS
+per [
+.ul
+OPTIONS
+]
+.ul
+TARGET
+
+.SH OPTIONS
+.B
+  -S
+Treat notations as special notations.
+.B
+  -v
+Print permissions verbosely.
+.B
+  -n
+Print permissions in a numeric notation.
+.B
+  -s
+Print permissions in a symbolic notation.
+
+Options may be chained (e.g. -vns). Providing no options defaults to -vns. Providing only -S as an option defaults to -Svns.
+
+.SH TARGET
+TARGET may be:
+  * A symbolic notation (e.g. rwxr-xr-x)
+  * A numeric notation (e.g. 755)
+  * A file (e.g. /etc/passwd)
+  * A literal dash '-'
+
+If TARGET is a literal dash '-', it will be replaced with a first line from stdin.
+
+If -S option is used, per will accept and print special notations (e.g. rwsrwsrwT or 6775).
+
+.SH EXAMPLES
+    Printing a file permission verbosely
+  per -v /etc/passwd
+
+    Converting a special numeric (octal) notation into symbolic
+  per -Ss 6775
+
+    Copying a file permission
+  chmod `per -Sn file1` file2
+
+.SH BUGS
+None known. Found bugs report to
+.ul
+https://github.com/jarmuszz/per/issues
+
+.SH AUTHOR
+Written by Mariusz Jakoniuk (jarmusz at tuta dot io).

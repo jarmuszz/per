@@ -1,6 +1,6 @@
 per - Simple unix permission viewer and converter
 
-per is a simple utility that can verbosely print unix permissions and
+Per is a simple utility that can verbosely print unix permissions and
 convert between symbolic and numeric notations and vice-versa.
 
 Synopsis:
@@ -18,18 +18,37 @@ TARGET may be:
   * A symbolic notation (e.g. rwxr-xr-x)
   * A numeric notation (e.g. 755)
   * A file (e.g. /etc/passwd)
+  * A literal dash '-'
+
+If TARGET is a literal dash '-', it will be replaced with a first line from stdin.
 
 If -S option is used, per will accept and print special notations (e.g.
 rwsrwsrwT or 6775).
 
-Building:
-Build deps: GNU make
-Run `make' (`gmake' on non-GNU systems) and wait a sec. The build will
-produce a binary called `per' which you can copy to somewhere into
-your $PATH (e.g cp per /usr/sbin/). Building works on OpenBSD, Artix
-GNU/Linux, NixOS (thanks Legend!) and macOS (thanks grylem!) but should
-also work on different systems (including different *BSDs). You can
-also compile it by hand, it's c99.
+Examples:
+  Printing a file permission verbosely
+per -v /etc/passwd
+
+  Converting a special numeric (octal) notation into symbolic
+per -Ss 6775
+
+  Copying a file permission
+chmod `per -Sn file1` file2
+
+Installing:
+Build deps: GNU make, gzip (for documentation)
+
+To build and install the program with documentation run:
+make
+sudo make install
+
+To build and install the program *without* documentation run:
+make
+sudo make install-bin
+
+Building was tested and works on: Artix, OpenBSD, NixOS and macOS.
+
+Thanks for Legend and grylem for testing per on NixOS and macOS respectively.
 
 Bugs report to the github repo.
-Made by jarmuszz (jarmusz at tuta dot io).
+Made by Mariusz Jakoniuk (jarmusz at tuta dot io).
