@@ -16,8 +16,9 @@ BIN=per
 CSRC=$(wildcard *.c)
 HEADERS=$(wildcard *.h)
 DOC=per.1
-MANDEST=/usr/share/man/man1
-BINDEST=/usr/bin
+DESTDIR=
+MANDEST=$(DESTDIR)/usr/share/man/man1
+BINDEST=$(DESTDIR)/usr/bin
 
 ifeq ($(DEBUG), true)
 	CFLAGS += -g
@@ -46,7 +47,7 @@ install: build install-bin install-doc
 
 install-doc: $(DOC)
 	cp $(DOC) $(MANDEST)
-	gzip $(MANDEST)/$(DOC)
+	cd $(MANDEST); gzip $(DOC)
 
 install-bin: $(BIN)
 	cp $(BIN) $(BINDEST)
