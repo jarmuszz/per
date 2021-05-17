@@ -7,6 +7,8 @@
 # To Uninstall:
 # 	sudo make uninstall
 
+VERSION=1.0
+
 CC=cc
 CFLAGS=-O2 -std=c99 -Wall -Wextra
 DEBUG=false
@@ -23,6 +25,21 @@ endif
 
 # Default
 build: $(BIN)
+
+# Tarball
+TARBALL=$(BIN)-$(VERSION).tar.gz
+TARBALL_BUILD_PARENT=/tmp/per/
+TARBALL_BUILD=$(TARBALL_BUILD_PARENT)/$(BIN)-$(VERSION)
+tarball: clean
+# Fixes awkward GNU Tar behavior
+ifneq ($(shell tar --version 2>&1 | grep gnu),)
+	TARFLAGS=--exclude=$(TARBALL)
+endif
+	mkdir -p $(TARBALL_BUILD)
+	cp * $(TARBALL_BUILD)/
+	cd $(TARBALL_BUILD_PARENT); tar -czvf $(TARBALL) $(TARFLAGS) $(shell basename $(TARBALL_BUILD))
+	mv $(TARBALL_BUILD_PARENT)/$(TARBALL) .
+	rm -r $(TARBALL_BUILD_PARENT)
 
 # Installing/Uninstalling
 install: build install-bin install-doc
@@ -54,4 +71,4 @@ else
 	@echo "Nothing to clear."
 endif
 
-.PHONY: install install-doc install-bin uninstall build clean
+.PHONY: install install-doc install-bin uninstall build clean tarball
