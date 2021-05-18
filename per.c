@@ -120,7 +120,7 @@ new_perm_from_value(char *target) {
      * Possible race condition, file could've been modified between access()
      * and stat().
      */
-    if (errno != 1) {
+    if (errno != 0) {
       ERR(errno, errno, "Race condition cought, file %s modified.", target);
     }
 
