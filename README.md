@@ -51,7 +51,9 @@ make
 sudo make install-bin
 ```
 
-Building was tested and works on: Artix, OpenBSD, NixOS and macOS.
+Per is also available in [Arch User Repository](https://aur.archlinux.org/packages/per/). It will always be up to date with the latest release.
+
+Building was tested and works on: Artix, Arch, OpenBSD, NixOS and macOS.
 
 Thanks for Legend and grylem for testing per on NixOS and macOS respectively.
 

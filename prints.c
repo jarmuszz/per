@@ -34,7 +34,7 @@ print_verbose(Perm *perm) {
 
 void
 usage() {
-  fprintf(stderr, "usage: per [-S] [-v] [-n] [-s] [PATH | SYMBOLIC | NUMERIC]\n");
+  fprintf(stderr, "usage: per [-S] [-v] [-n] [-s] [PATH | SYMBOLIC | NUMERIC | -]\n");
 } /* End of usage() */
 
 

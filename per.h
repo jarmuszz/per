@@ -28,8 +28,7 @@
 
 #define LEN(arr) (sizeof(arr) / sizeof(arr[0]))
 
-/* Permision from the arg is
- * converted into this struct */
+/* Permision from the arg is converted into this struct */
 typedef struct __perm {
   uint16_t    numeric;
   char       *symbolic; 

@@ -7,14 +7,25 @@ numeric_to_symbolic(uint16_t num) {
   const char chars_spec[] = "sstSST";
   uint8_t numeric_len = 9;
 
+  /*
+   * Checks num bit by bit from left. If bit nth is 1 then fill the nth place
+   * in `symbolic' with nth char from `chars[]', otherwise fill it with a '-'.
+   */
   for (unsigned int i = 0; i < numeric_len; i++) {
     symbolic[i] = (num & (1 << (8-i))) ? chars[i] : '-';
   }
 
   /* Once I knew what it all meant */
+
+  /* Similar to above, but checks bits from the left */
   if (specialp) {
     for (unsigned int i = 0; i < 3; i++) {
+      /* Check if nth bit frm the beginning is 1 */
       if (num & (1 << (11 - i))) {
+        /* 
+         * Check if (8 - ((i + 1) * 3) + 1) bit  is 1 and apply uppercase or
+         * lowercase char appropriately.
+         */
         if (num & (1 << (8 - ((i + 1) * 3) + 1)))
           symbolic[((i + 1) * 3) - 1] = chars_spec[i];
         else

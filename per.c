@@ -28,15 +28,13 @@ main(int argc, char **argv) {
     exit(1);
   }
 
-  /* If only one arg is supplied
-   * respawn with `-vns' */
+  /* If only one arg is supplied respawn with `-vns' */
   if (argc == 2) {
     char *argv_respawn[] = { argv[0], "-vns", argv[1], NULL };
     execvp(argv[0], argv_respawn);
   }
 
-  /* The same as above but runs when
-   * only `-S' is passed */
+  /* The same as above but runs when only `-S' is passed */
   if (argc == 3 && (strcmp(argv[1], "-S")) == 0) {
     char *argv_respawn[] = { argv[0], "-Svns", argv[2], NULL };
     execvp(argv[0], argv_respawn);
@@ -99,11 +97,15 @@ new_perm_from_value(char *target) {
   long numeric = strtol(target, &endptr, 8);
 
   /* Exit if ``NUMERIC'' is negative or is longer than ``BITN'' bits  */
-  if (numeric < 0 || (numeric >> bitn) != 0) 
+  if (numeric < 0 || (numeric >> bitn) != 0)  {
+    usage();
     ERR(1, EINVAL, "Incorrect numeric notation");
+  }
 
-  /* Checking if there weren't any strings in ``TARGET''
-     i.e. runs if ``TARGET'' is a number. */
+  /* 
+   * Checking if there weren't any strings in ``TARGET'' i.e. runs if
+   * ``TARGET'' is a number. 
+   */
   if (*endptr == '\0') {
     perm->numeric = (uint16_t) numeric;
     perm->symbolic = numeric_to_symbolic((uint16_t) numeric);
@@ -113,6 +115,15 @@ new_perm_from_value(char *target) {
   else if (!access(target, F_OK)) {
     struct stat statbuf;
     stat(target, &statbuf);
+
+    /* 
+     * Possible race condition, file could've been modified between access()
+     * and stat().
+     */
+    if (errno != 1) {
+      ERR(errno, errno, "Race condition cought, file %s modified.", target);
+    }
+
     numeric = statbuf.st_mode & (S_IRWXU + S_IRWXG + S_IRWXO);
     if (specialp) numeric += statbuf.st_mode & 07000;
 
@@ -126,7 +137,10 @@ new_perm_from_value(char *target) {
     perm->symbolic = target;
   }
 
-  else ERR(1, EINVAL, "%s", target);
+  else {
+    usage();
+    ERR(1, EINVAL, "%s", target);
+  }
 
   perm->initialized = TRUE;
 

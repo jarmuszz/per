@@ -10,8 +10,7 @@
 
 int
 expt(int x, unsigned int exp) {
-  /* This implementation is lacking but there's
-   * no need for more. */
+  /* This implementation is lacking but there's no need for more */
   int res = 1;
   for ( ; exp != 0; exp--) res *= x;
   
@@ -25,7 +24,10 @@ symbolicp(char *str) {
   char chars_spec[] = "sst";
   char chars_spec_upp[] = "SST";
 
-  if (strlen(str) != 9) ERR(1, EINVAL, "%s", str);
+  if (strlen(str) != 9) {
+    usage();
+    ERR(1, EINVAL, "%s", str);
+  }
 
   if (specialp) {
     for (unsigned int i = 0; i <= strlen(str)-1; i++) {
