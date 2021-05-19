@@ -59,4 +59,4 @@ Thanks for Legend for testing per on NixOS and for grylem for testing on macOS a
 
 Bugs report to the github repo.
 
-Made by Mariusz Jakoniuk (jarmusz at tuta dot io).
+Made by Mariusz Jakoniuk (jarmuszz at tuta dot io).
