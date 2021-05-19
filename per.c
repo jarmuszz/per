@@ -114,13 +114,13 @@ new_perm_from_value(char *target) {
   /* Runs if ``TARGET'' is a valid path */
   else if (!access(target, F_OK)) {
     struct stat statbuf;
-    stat(target, &statbuf);
 
     /* 
      * Possible race condition, file could've been modified between access()
      * and stat().
      */
-    if (errno != 0) {
+    if (stat(target, &statbuf) != 0) {
+      usage();
       ERR(errno, errno, "Race condition cought, file %s modified.", target);
     }
 

@@ -7,7 +7,7 @@
 # To Uninstall:
 # 	sudo make uninstall
 
-VERSION=1.0.2
+VERSION=1.0.3
 
 CC=cc
 CFLAGS=-O2 -std=c99 -Wall -Wextra

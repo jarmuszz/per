@@ -55,7 +55,7 @@ Per is also available in [Arch User Repository](https://aur.archlinux.org/packag
 
 Building was tested and works on: Artix, Arch, OpenBSD, NixOS and macOS.
 
-Thanks for Legend and grylem for testing per on NixOS and macOS respectively.
+Thanks for Legend for testing per on NixOS and for grylem for testing on macOS and for creating the manpage in mdoc format.
 
 Bugs report to the github repo.
 

@@ -1,56 +1,82 @@
-.TH per 1 "May 2021" "" "May 2021"
-.SH NAME
-per - Simple unix permission viewer and converter
-
-.SH SYNOPSIS
-per [
-.ul
-OPTIONS
-]
-.ul
-TARGET
-
-.SH OPTIONS
-.B
-  -S
-Treat notations as special notations.
-.B
-  -v
-Print permissions verbosely.
-.B
-  -n
+.Dd $Mdocdate: May 19 2021 $
+.Dt PER 1
+.Os
+.Sh NAME
+.Nm per
+.Nd a simple unix permission viewer and converter
+.Sh SYNOPSIS
+.Nm
+.Op Fl nSsv
+.Op Ar target
+.Sh DESCRIPTION
+The
+.Nm
+is a simple utility that can verbosely print unix permissions and convert between symbolic and numeric notations and vice-versa.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl n
 Print permissions in a numeric notation.
-.B
-  -s
+.It Fl S
+Treat notations as special notations.
+.It Fl s
 Print permissions in a symbolic notation.
-
-Options may be chained (e.g. -vns). Providing no options defaults to -vns. Providing only -S as an option defaults to -Svns.
-
-.SH TARGET
-TARGET may be:
-  * A symbolic notation (e.g. rwxr-xr-x)
-  * A numeric notation (e.g. 755)
-  * A file (e.g. /etc/passwd)
-  * A literal dash '-'
-
-If TARGET is a literal dash '-', it will be replaced with a first line from stdin.
-
-If -S option is used, per will accept and print special notations (e.g. rwsrwsrwT or 6775).
-
-.SH EXAMPLES
-    Printing a file permission verbosely
-  per -v /etc/passwd
-
-    Converting a special numeric (octal) notation into symbolic
-  per -Ss 6775
-
-    Copying a file permission
-  chmod `per -Sn file1` file2
-
-.SH BUGS
-None known. Found bugs report to
-.ul
-https://github.com/jarmuszz/per/issues
-
-.SH AUTHOR
-Written by Mariusz Jakoniuk (jarmusz at tuta dot io).
+.It Fl v
+Print permissions verbosely.
+.El
+.Pp
+Options may be chained
+.Pq e.g. Fl vns .
+Providing no options defaults to
+.Fl vns
+Providing only
+.Fl S
+as an option defaults to
+.Fl Svns .
+.Pp
+.Ar target
+may be:
+.Pp
+.Bl -bullet -compact
+.It
+A symbolic notation (e.g. rwxr-xr-x)
+.It
+A numeric notation (e.g. 755)
+.It
+A file (e.g. /etc/passwd)
+.It
+A literal dash '-'
+.El
+.Pp
+If
+.Ar target
+is a literal dash '-', it will be replaced with a first line from stdin.
+.Pp
+If
+.Fl S
+option is used,
+.Nm
+will accept and print special notations
+.Pq e.g.rwsrwsrwT or 6775 .
+.Sh EXIT STATUS
+.Ex -std
+.Sh EXAMPLES
+Printing a file permission verbosely:
+.Pp
+.Dl "$ per -v /etc/passwd"
+.Pp
+Converting a special numeric (octal) notation into symbolic:
+.Pp
+.Dl "$ per -Ss 6775"
+.Pp
+Copying a file permission:
+.Pp
+.Dl "$ chmod `per -Sn file1` file2"
+.Sh SEE ALSO
+.Xr chmod 1
+.Sh AUTHORS
+.An Mariusz Jakoniuk Aq Mt jarmusz@tuta.io
+.Sh BUGS
+None known.
+Found bugs report to
+.Lk https://github.com/jarmuszz/per/issues
