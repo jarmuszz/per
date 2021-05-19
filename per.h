@@ -13,7 +13,7 @@
 #if defined(__linux__)
   #include <error.h>
   #define ERR(eval, fmt, ...) error(eval, fmt, __VA_ARGS__)
-#elif defined(__unix__) || defined(APPLE)
+#elif defined(__unix__) || defined(__APPLE__)
   #include <err.h>
   #define ERR(eval, fmt, ...) errc(eval, fmt, __VA_ARGS__)
 #endif
