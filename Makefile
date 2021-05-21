@@ -29,7 +29,7 @@ build: $(BIN)
 
 # Tarball
 TARBALL=$(BIN)-$(VERSION).tar.gz
-TARBALL_BUILD_PARENT=/tmp/per/
+TARBALL_BUILD_PARENT=/tmp/per
 TARBALL_BUILD=$(TARBALL_BUILD_PARENT)/$(BIN)-$(VERSION)
 tarball: clean
 # Fixes awkward GNU Tar behavior
