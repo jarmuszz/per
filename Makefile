@@ -7,7 +7,7 @@
 # To Uninstall:
 # 	sudo make uninstall
 
-VERSION=1.0.3
+VERSION=1.0.4
 
 CC=cc
 CFLAGS=-O2 -std=c99 -Wall -Wextra
@@ -23,6 +23,8 @@ BINDEST=$(DESTDIR)/usr/bin
 ifeq ($(DEBUG), true)
 	CFLAGS += -g
 endif
+
+.PHONY: install install-doc install-bin uninstall build clean tarball
 
 # Default
 build: $(BIN)
@@ -46,10 +48,12 @@ endif
 install: build install-bin install-doc
 
 install-doc: $(DOC)
+	mkdir -p $(MANDEST)
 	cp $(DOC) $(MANDEST)
 	cd $(MANDEST); gzip $(DOC)
 
 install-bin: $(BIN)
+	mkdir -p $(BINDEST)
 	cp $(BIN) $(BINDEST)
 
 uninstall:
@@ -71,5 +75,3 @@ ifneq (, $(wildcard $(BIN)))
 else
 	@echo "Nothing to clear."
 endif
-
-.PHONY: install install-doc install-bin uninstall build clean tarball

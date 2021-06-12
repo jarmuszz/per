@@ -49,7 +49,7 @@ sudo make install-bin
 Per is also available in Arch User Repository (https://aur.archlinux.org/packages/per/). 
 It will always be up to date with the latest release.
 
-Building was tested and works on: Artix, Arch, OpenBSD, NixOS and macOS.
+Building was tested and works on: Slackware, Artix, Arch, OpenBSD, NixOS and macOS.
 
 Thanks for Legend for testing per on NixOS and for grylem for testing on macOS
 and for creating the manpage in mdoc format.
