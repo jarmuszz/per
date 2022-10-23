@@ -25,16 +25,14 @@ numeric_to_symbolic(uint16_t num) {
 		symbolic[i] = (num & (1 << (8-i))) ? chars[i] : '-';
 	}
 
-	/* Once I knew what it all meant */
-
-	/* Similar to above, but checks bits from the left */
 	if (specialp) {
+		/* Similar to above, but checks 3 bits from the left */
 		for (unsigned int i = 0; i < 3; i++) {
 			/* Check if nth bit frm the beginning is 1 */
 			if (num & (1 << (11 - i))) {
 				/* 
-				 * Check if (8 - ((i + 1) * 3) + 1) bit  is 1 and apply uppercase or
-				 * lowercase char appropriately.
+				 * Check if corresponding bit from non-special notation is empty
+				 * and apply uppercase or lowercase char appropriately.
 				 */
 				if (num & (1 << (8 - ((i + 1) * 3) + 1)))
 					symbolic[((i + 1) * 3) - 1] = chars_spec[i];
