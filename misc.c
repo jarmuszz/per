@@ -1,6 +1,6 @@
 // vim: ts=2 shiftwidth=2 noexpandtab
 
-/* 
+/*
  * per - Simple unix permission viewer and converter
  *
  * This program is licensed under GPL version 3.
@@ -39,7 +39,7 @@ symbolicp(char *str) {
 							str[i] != chars_spec_upp[i / 3]) {
 						return (FALSE);
 					}
-				} 
+				}
 				else return (FALSE);
 			}
 		}

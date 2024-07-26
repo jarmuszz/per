@@ -1,6 +1,6 @@
 // vim: ts=2 shiftwidth=2 noexpandtab
 
-/* 
+/*
  * per - Simple unix permission viewer and converter
  *
  * This program is licensed under GPL version 3.
@@ -14,8 +14,8 @@
 /* Printing Functions */
 void
 print_numeric(Perm *perm) {
-	if (specialp) printf("%04o\n", perm->numeric); 
-	else					printf("%03o\n", perm->numeric); 
+	if (specialp) printf("%04o\n", perm->numeric);
+	else					printf("%03o\n", perm->numeric);
 }
 
 void

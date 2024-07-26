@@ -46,7 +46,7 @@ To build and install the program *without* documentation run:
 make
 sudo make install-bin
 
-Per is also available in Arch User Repository (https://aur.archlinux.org/packages/per/). 
+Per is also available in Arch User Repository (https://aur.archlinux.org/packages/per/).
 It will always be up to date with the latest release.
 
 Building was tested and works on: Slackware, Artix, Arch, OpenBSD, NixOS and macOS.

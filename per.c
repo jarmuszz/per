@@ -1,6 +1,6 @@
 // vim: ts=2 shiftwidth=2 noexpandtab
 
-/* 
+/*
  * per - Simple unix permission viewer and converter
  *
  * This program is licensed under GPL version 3.
@@ -104,9 +104,9 @@ new_perm_from_value(char *target) {
 		ERR(1, EINVAL, "Incorrect numeric notation");
 	}
 
-	/* 
+	/*
 	 * Checking if there weren't any strings in ``TARGET'' i.e. runs if
-	 * ``TARGET'' is a number. 
+	 * ``TARGET'' is a number.
 	 */
 	if (*endptr == '\0') {
 		perm->numeric = (uint16_t) numeric;
@@ -117,7 +117,7 @@ new_perm_from_value(char *target) {
 	else if (!access(target, F_OK)) {
 		struct stat statbuf;
 
-		/* 
+		/*
 		 * Possible race condition, file could've been modified between access()
 		 * and stat().
 		 */

@@ -58,7 +58,7 @@ install-bin: $(BIN)
 
 uninstall:
 ifneq (, $(wildcard $(MANDEST)/$(DOC).gz))
-	rm $(MANDEST)/$(DOC).gz 
+	rm $(MANDEST)/$(DOC).gz
 endif
 ifneq (, $(wildcard $(BINDEST)/$(BIN)))
 	rm $(BINDEST)/$(BIN)
@@ -66,10 +66,10 @@ endif
 
 # Building
 $(BIN): $(CSRC) $(HEADERS)
-	$(CC) -o $(BIN) $(CFLAGS) $(CSRC) 
+	$(CC) -o $(BIN) $(CFLAGS) $(CSRC)
 
 # Cleaning
-clean: 
+clean:
 ifneq (, $(wildcard $(BIN)))
 	rm $(BIN)
 else
