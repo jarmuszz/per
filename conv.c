@@ -75,14 +75,9 @@ symbolic_to_numeric(char *str) {
 	return (numeric);
 } /* End of symbolic_to_numeric() */
 
+/* Converts 3 bits into symbolic */
 char*
-numeric_to_verbose(unsigned int octal, char* read_str, char* write_str, char* exec_str) {
-	/* Converts 3 bits into symbolic */
-	if (!read_str)	 read_str = "read";
-	if (!write_str)  write_str = "write";
-	if (!exec_str)	 exec_str = "execute";
-
-	char* strs[] = {read_str, write_str, exec_str};
+numeric_to_verbose(unsigned int octal, char* strs[]) {
 	char* buff_str = calloc(22, sizeof(char));
 
 	for (int i = 04; i; i >>= 1) {

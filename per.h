@@ -57,8 +57,7 @@ void				usage									 ();
 /* conv.c */
 char			 *numeric_to_symbolic		 (uint16_t num);
 uint16_t		symbolic_to_numeric		 (char* str);
-char			 *numeric_to_verbose		 (unsigned int octal, char* read_str,
-																		char* write_str,		char* exec_str);
+char			 *numeric_to_verbose		 (unsigned int octal, char* strs[]);
 /* You can jump into function definitions by regex ^function_name */
 
 /* End of Function Prototypes */
