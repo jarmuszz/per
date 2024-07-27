@@ -78,24 +78,18 @@ symbolic_to_numeric(char *str) {
 char*
 numeric_to_verbose(unsigned int octal, char* read_str, char* write_str, char* exec_str) {
 	/* Converts 3 bits into symbolic */
-	char* comma_str = ", ";
 	if (!read_str)	 read_str = "read";
 	if (!write_str)  write_str = "write";
 	if (!exec_str)	 exec_str = "execute";
 
+	char* strs[] = {read_str, write_str, exec_str};
 	char* buff_str = calloc(22, sizeof(char));
 
-	/* Bad but works */
-	if (octal & 04) strcpy(buff_str, read_str);
-	if (octal & 02) {
-		if (buff_str[0] != '\0')
-			buff_str = strcat(buff_str, comma_str);
-		buff_str = strcat(buff_str, write_str);
-	}
-	if (octal & 01) {
-		if (buff_str[0] != '\0')
-			buff_str = strcat(buff_str, comma_str);
-		buff_str = strcat(buff_str, exec_str);
+	for (int i = 04; i; i >>= 1) {
+		if (octal & i) {
+			if (*buff_str) strcat(buff_str, ", ");
+			buff_str = strcat(buff_str, strs[2-(i>>1)]);
+		}
 	}
 
 	return buff_str;
