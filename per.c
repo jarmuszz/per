@@ -1,6 +1,6 @@
 // vim: ts=2 shiftwidth=2 noexpandtab
 
-/* 
+/*
  * per - Simple unix permission viewer and converter
  *
  * This program is licensed under GPL version 3.
@@ -32,14 +32,12 @@ main(int argc, char **argv) {
 
 	/* If only one arg is supplied respawn with `-vns' */
 	if (argc == 2) {
-		char *argv_respawn[] = { argv[0], "-vns", argv[1], NULL };
-		execvp(argv[0], argv_respawn);
+		execl(argv[0], argv[0], "-vns", argv[1], NULL);
 	}
 
 	/* The same as above but runs when only `-S' is passed */
 	if (argc == 3 && (strcmp(argv[1], "-S")) == 0) {
-		char *argv_respawn[] = { argv[0], "-Svns", argv[2], NULL };
-		execvp(argv[0], argv_respawn);
+		execl(argv[0], argv[0], "-Svns", argv[2], NULL);
 	}
 
 	/* Allocate space for permissions converted into a struct */
@@ -62,11 +60,11 @@ main(int argc, char **argv) {
 				break;
 			case 'n':
 				if (!perm->initialized) perm = new_perm_from_value(target);
-				print_numeric(perm);
+				printf("%0*o\n", specialp ? 4 : 3, perm->numeric);
 				break;
 			case 's':
 				if (!perm->initialized) perm = new_perm_from_value(target);
-				print_symbolic(perm);
+				puts(perm->symbolic);
 				break;
 			case 'v':
 				if (!perm->initialized) perm = new_perm_from_value(target);
@@ -75,11 +73,9 @@ main(int argc, char **argv) {
 			case 'h':
 				usage();
 				exit(0);
-				break;
 			default:
 				usage();
 				exit(1);
-				break;
 		}
 	}
 
@@ -89,9 +85,7 @@ main(int argc, char **argv) {
 Perm *
 new_perm_from_value(char *target) {
 	/* N of bits (12 for special, 9 for normal) */
-	int bitn;
-	if (specialp) bitn = 12;
-	else					bitn = 9;
+	int bitn = specialp ? 12 : 9;
 	
 	/* calloc will set mem to 0 */
 	Perm *perm = calloc(1, sizeof(Perm));
@@ -104,9 +98,9 @@ new_perm_from_value(char *target) {
 		ERR(1, EINVAL, "Incorrect numeric notation");
 	}
 
-	/* 
+	/*
 	 * Checking if there weren't any strings in ``TARGET'' i.e. runs if
-	 * ``TARGET'' is a number. 
+	 * ``TARGET'' is a number.
 	 */
 	if (*endptr == '\0') {
 		perm->numeric = (uint16_t) numeric;
@@ -117,7 +111,7 @@ new_perm_from_value(char *target) {
 	else if (!access(target, F_OK)) {
 		struct stat statbuf;
 
-		/* 
+		/*
 		 * Possible race condition, file could've been modified between access()
 		 * and stat().
 		 */

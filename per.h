@@ -1,6 +1,6 @@
 // vim: ts=2 shiftwidth=2 noexpandtab
 
-/* 
+/*
  * per - Simple unix permission viewer and converter
  *
  * This program is licensed under GPL version 3.
@@ -33,7 +33,7 @@
 /* Permision from the arg is converted into this struct */
 typedef struct __perm {
 	uint16_t		numeric;
-	char			 *symbolic; 
+	char			 *symbolic;
 	_Bool				initialized;
 } Perm;
 
@@ -57,7 +57,7 @@ void				usage									 ();
 /* conv.c */
 char			 *numeric_to_symbolic		 (uint16_t num);
 uint16_t		symbolic_to_numeric		 (char* str);
-char			 *numeric_to_verbose		 (unsigned int octal, char* read_str, 
+char			 *numeric_to_verbose		 (unsigned int octal, char* read_str,
 																		char* write_str,		char* exec_str);
 /* You can jump into function definitions by regex ^function_name */
 

@@ -1,6 +1,6 @@
 // vim: ts=2 shiftwidth=2 noexpandtab
 
-/* 
+/*
  * per - Simple unix permission viewer and converter
  *
  * This program is licensed under GPL version 3.
@@ -12,15 +12,6 @@
 #include "per.h"
 
 /* Printing Functions */
-void
-print_numeric(Perm *perm) {
-	if (specialp) printf("%04o\n", perm->numeric); 
-	else					printf("%03o\n", perm->numeric); 
-}
-
-void
-print_symbolic(Perm *perm) { printf("%s\n", perm->symbolic); }
-
 void
 print_verbose(Perm *perm) {
 	printf("user: %s\n", numeric_to_verbose((perm->numeric & 0700) >> 6, NULL, NULL, NULL));

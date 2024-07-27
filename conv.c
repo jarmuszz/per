@@ -1,6 +1,6 @@
 // vim: ts=2 shiftwidth=2 noexpandtab
 
-/* 
+/*
  * per - Simple unix permission viewer and converter
  *
  * This program is licensed under GPL version 3.
@@ -30,7 +30,7 @@ numeric_to_symbolic(uint16_t num) {
 		for (unsigned int i = 0; i < 3; i++) {
 			/* Check if nth bit frm the beginning is 1 */
 			if (num & (1 << (11 - i))) {
-				/* 
+				/*
 				 * Check if corresponding bit from non-special notation is empty
 				 * and apply uppercase or lowercase char appropriately.
 				 */
