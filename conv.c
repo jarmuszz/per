@@ -10,41 +10,20 @@
 
 #include "per.h"
 
+// Format access mode into a rwxrwxrwx string
 char *
 numeric_to_symbolic(uint16_t num) {
-	char *symbolic = calloc(10, sizeof(char));
-	const char chars[] = "rwxrwxrwx";
-	const char chars_spec[] = "sstSST";
-	uint8_t numeric_len = 9;
+	char *buf = calloc(10, sizeof(char));
 
-	/*
-	 * Checks num bit by bit from left. If bit nth is 1 then fill the nth place
-	 * in `symbolic' with nth char from `chars[]', otherwise fill it with a '-'.
-	 */
-	for (unsigned int i = 0; i < numeric_len; i++) {
-		symbolic[i] = (num & (1 << (8-i))) ? chars[i] : '-';
+	// Revised Toybox lib/lib.c mode_to_string()
+	for (int i = 0; i < 9; i++) {
+		int bit = num & (1 << i), rwx = i % 3;
+		if (!rwx && (num & (1 << ((i / 3) + 9)))) {
+			buf[8-i] = "tss"[i/3];
+			if (!bit) buf[8-i] &= ~0x20;
+		} else buf[8-i] = bit ? "xwr"[rwx] : '-';
 	}
-
-	if (specialp) {
-		/* Similar to above, but checks 3 bits from the left */
-		for (unsigned int i = 0; i < 3; i++) {
-			/* Check if nth bit frm the beginning is 1 */
-			if (num & (1 << (11 - i))) {
-				/*
-				 * Check if corresponding bit from non-special notation is empty
-				 * and apply uppercase or lowercase char appropriately.
-				 */
-				if (num & (1 << (8 - ((i + 1) * 3) + 1)))
-					symbolic[((i + 1) * 3) - 1] = chars_spec[i];
-				else
-					symbolic[((i + 1) * 3) - 1] = chars_spec[i + 3];
-			}
-		}
-	}
-	
-	symbolic[9] = '\0';
-
-	return (symbolic);
+	return buf;
 } /* End of numeric_to_symbolic() */
 
 uint16_t
