@@ -9,7 +9,7 @@ testing () {
   $CMD $1 > got || echo "WARNING: $1 exited $?"
   printf "$2\n" > wanted
   ! diff -u $TESTDIR/wanted $TESTDIR/got
-  echo "\033[1;$((31+$?))m$1\033[0m"
+  printf "\033[1;%sm%s\033[0m\n" "$((31+$?))" "$1"
 }
 
 touch f777 f7520
