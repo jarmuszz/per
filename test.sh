@@ -8,7 +8,7 @@ cd $TESTDIR
 testing () {
   $CMD $1 > got || echo "WARNING: $1 exited $?"
   printf "$2\n" > wanted
-  ! diff -u $TESTDIR/wanted $TESTDIR/got
+  ! diff -u "$TESTDIR/wanted" "$TESTDIR/got"
   printf "\033[1;%sm%s\033[0m\n" "$((31+$?))" "$1"
 }
 
