@@ -11,24 +11,17 @@
 #ifndef PER_H
 #define PER_H
 
-/* errc on *BSD, error on GNU/Linux */
-#if defined(__linux__)
-	#include <error.h>
-	#define ERR(eval, fmt, ...) error(eval, fmt, __VA_ARGS__)
-#elif defined(__unix__) || defined(__APPLE__)
-	#include <err.h>
-	#define ERR(eval, fmt, ...) errc(eval, fmt, __VA_ARGS__)
-#endif
-
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <err.h>
 
 #define TRUE 1
 #define FALSE 0
 
 #define LEN(arr) (sizeof(arr) / sizeof(arr[0]))
+#define ERR(eval, fmt, ...) err(eval && ((errno = fmt) || 1), __VA_ARGS__)
 
 /* Permision from the arg is converted into this struct */
 typedef struct __perm {
