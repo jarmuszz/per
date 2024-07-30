@@ -21,7 +21,7 @@
 #define FALSE 0
 
 #define LEN(arr) (sizeof(arr) / sizeof(arr[0]))
-#define ERR(eval, fmt, ...) err(eval && ((errno = fmt) || 1), __VA_ARGS__)
+#define ERR(eval, fmt, ...) do { errno = fmt; err(eval, __VA_ARGS__); } while (0)
 
 /* Permision from the arg is converted into this struct */
 typedef struct __perm {
