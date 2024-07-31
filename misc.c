@@ -10,16 +10,6 @@
 
 #include "per.h"
 
-int
-expt(int x, unsigned int exp) {
-	/* This implementation is lacking but there's no need for more */
-	int res = 1;
-	for ( ; exp != 0; exp--) res *= x;
-	
-	return res;
-} /* End of expt() */
-
-
 _Bool
 symbolicp(char *str) {
 	char chars[] = "rwx";

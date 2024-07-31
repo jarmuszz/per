@@ -38,7 +38,6 @@ extern _Bool specialp;
 Perm			 *new_perm_from_value		 (char *target);
 
 /* misc.c */
-int					expt									 (int x, unsigned int exp);
 _Bool				symbolicp							 (char *str);
 
 /* prints.c */

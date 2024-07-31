@@ -41,3 +41,5 @@ testing "-nv f777" "777
 user: $R, $W, $X
 group: $R, $W, $X
 other: $R, $W, $X"
+testing "-Sn rwSrwsrwT" "7676"
+testing "-Sn rwsrwSr-t" "7765"
