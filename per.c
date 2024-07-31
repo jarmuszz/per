@@ -32,13 +32,14 @@ main(int argc, char **argv) {
 
 	/* If only one arg is supplied respawn with `-vns' */
 	if (argc == 2) {
-		execl(argv[0], argv[0], "-vns", argv[1], NULL);
+		if (strcmp(argv[1], "-h"))
+		  execl(argv[0], argv[0], "-vns", argv[1], NULL);
+		else { usage(); exit(0); }
 	}
 
 	/* The same as above but runs when only `-S' is passed */
-	if (argc == 3 && (strcmp(argv[1], "-S")) == 0) {
+	if (argc == 3 && (strcmp(argv[1], "-S")) == 0)
 		execl(argv[0], argv[0], "-Svns", argv[2], NULL);
-	}
 
 	/* Allocate space for permissions converted into a struct */
 	Perm *perm = calloc(1, sizeof(Perm));

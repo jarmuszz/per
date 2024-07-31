@@ -11,15 +11,18 @@
 
 #include "per.h"
 
+char* regular_pnames[] = {"read", "write", "execute"};
+char* special_pnames[] = {"suid", "sgid", "sticky"};
+
 /* Printing Functions */
 void
 print_verbose(Perm *perm) {
-	printf("user: %s\n", numeric_to_verbose((perm->numeric & 0700) >> 6, NULL, NULL, NULL));
-	printf("group: %s\n", numeric_to_verbose((perm->numeric & 0070) >> 3, NULL, NULL, NULL));
-	printf("other: %s\n", numeric_to_verbose((perm->numeric & 0007), NULL, NULL, NULL));
+	printf("user: %s\n", numeric_to_verbose((perm->numeric & 0700) >> 6, regular_pnames));
+	printf("group: %s\n", numeric_to_verbose((perm->numeric & 0070) >> 3, regular_pnames));
+	printf("other: %s\n", numeric_to_verbose((perm->numeric & 0007), regular_pnames));
 	
 	if (specialp) {
-		printf("special: %s\n", numeric_to_verbose((perm->numeric & 07000) >> 9, "suid", "sgid", "sticky"));
+		printf("special: %s\n", numeric_to_verbose((perm->numeric & 07000) >> 9, special_pnames));
 	}
 	
 } /* End of print_verbose */

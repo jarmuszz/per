@@ -24,7 +24,7 @@ ifeq ($(DEBUG), true)
 	CFLAGS += -g
 endif
 
-.PHONY: install install-doc install-bin uninstall build clean tarball
+.PHONY: install install-doc install-bin uninstall build clean tarball test
 
 # Default
 build: $(BIN)
@@ -67,6 +67,10 @@ endif
 # Building
 $(BIN): $(CSRC) $(HEADERS)
 	$(CC) -o $(BIN) $(CFLAGS) $(CSRC)
+
+# Testing
+test: $(BIN)
+	./test.sh
 
 # Cleaning
 clean:
