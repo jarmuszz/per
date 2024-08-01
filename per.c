@@ -42,7 +42,7 @@ main(int argc, char **argv) {
 		execl(argv[0], argv[0], "-Svns", argv[2], NULL);
 
 	/* Allocate space for permissions converted into a struct */
-	Perm *perm = calloc(1, sizeof(Perm));
+	Perm *perm = NULL;
 
 	/* Cleaner syntax */
 	char *target = argv[argc-1];
@@ -60,16 +60,16 @@ main(int argc, char **argv) {
 				specialp = TRUE;
 				break;
 			case 'n':
-				if (!perm->initialized) perm = new_perm_from_value(target);
+				if (!perm) perm = new_perm_from_value(target);
 				printf("%0*o\n", specialp ? 4 : 3, perm->numeric);
 				break;
 			case 's':
-				if (!perm->initialized) perm = new_perm_from_value(target);
+				if (!perm) perm = new_perm_from_value(target);
 				puts(perm->symbolic);
 				break;
 			case 'v':
-				if (!perm->initialized) perm = new_perm_from_value(target);
-				print_verbose(perm);
+				if (!perm) perm = new_perm_from_value(target);
+				print_verbose(perm->numeric);
 				break;
 			case 'h':
 				usage();
@@ -137,8 +137,6 @@ new_perm_from_value(char *target) {
 		usage();
 		ERR(1, EINVAL, "%s", target);
 	}
-
-	perm->initialized = TRUE;
 
 	return perm;
 } /* End of new_perm_from_value() */

@@ -27,7 +27,6 @@
 typedef struct __perm {
 	uint16_t		numeric;
 	char			*symbolic;
-	_Bool			initialized;
 } Perm;
 
 /* Should we treat notations as special? */
@@ -41,9 +40,7 @@ Perm			 *new_perm_from_value		 (char *target);
 _Bool				symbolicp							 (char *str);
 
 /* prints.c */
-void				print_numeric					 (Perm *perm);
-void				print_symbolic				 (Perm *perm);
-void				print_verbose					 (Perm *perm);
+void				print_verbose					 (uint16_t numeric);
 void				usage									 ();
 
 /* conv.c */

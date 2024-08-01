@@ -16,13 +16,13 @@ char* special_pnames[] = {"suid", "sgid", "sticky"};
 
 /* Printing Functions */
 void
-print_verbose(Perm *perm) {
-	printf("user: %s\n", numeric_to_verbose((perm->numeric & 0700) >> 6, regular_pnames));
-	printf("group: %s\n", numeric_to_verbose((perm->numeric & 0070) >> 3, regular_pnames));
-	printf("other: %s\n", numeric_to_verbose((perm->numeric & 0007), regular_pnames));
+print_verbose(uint16_t numeric) {
+	printf("user: %s\n", numeric_to_verbose((numeric & 0700) >> 6, regular_pnames));
+	printf("group: %s\n", numeric_to_verbose((numeric & 0070) >> 3, regular_pnames));
+	printf("other: %s\n", numeric_to_verbose((numeric & 0007), regular_pnames));
 	
 	if (specialp) {
-		printf("special: %s\n", numeric_to_verbose((perm->numeric & 07000) >> 9, special_pnames));
+		printf("special: %s\n", numeric_to_verbose((numeric & 07000) >> 9, special_pnames));
 	}
 	
 } /* End of print_verbose */
