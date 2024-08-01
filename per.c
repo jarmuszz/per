@@ -47,7 +47,7 @@ main(int argc, char **argv) {
 	/* Cleaner syntax */
 	char *target = argv[argc-1];
 
-	/* If targer is a `-', read target from stdin */
+	/* If target is a `-', read target from stdin */
 	if (strcmp(target, "-") == 0) {
 		fscanf(stdin, "%s", target);
 	}
@@ -94,7 +94,7 @@ new_perm_from_value(char *target) {
 	long numeric = strtol(target, &endptr, 8);
 
 	/* Exit if ``NUMERIC'' is negative or is longer than ``BITN'' bits	*/
-	if (numeric < 0 || (numeric >> bitn) != 0)	{
+	if (numeric >> bitn) {
 		usage();
 		ERR(1, EINVAL, "Incorrect numeric notation");
 	}
@@ -104,8 +104,8 @@ new_perm_from_value(char *target) {
 	 * ``TARGET'' is a number.
 	 */
 	if (*endptr == '\0') {
-		perm->numeric = (uint16_t) numeric;
-		perm->symbolic = numeric_to_symbolic((uint16_t) numeric);
+		perm->numeric  = numeric;
+		perm->symbolic = numeric_to_symbolic(numeric);
 	}
 
 	/* Runs if ``TARGET'' is a valid path */
@@ -121,11 +121,10 @@ new_perm_from_value(char *target) {
 			ERR(errno, errno, "Race condition cought, file %s modified.", target);
 		}
 
-		numeric = statbuf.st_mode & (S_IRWXU + S_IRWXG + S_IRWXO);
-		if (specialp) numeric += statbuf.st_mode & 07000;
+		numeric = statbuf.st_mode & (0777 + (specialp ? 07000 : 0));
 
-		perm->numeric = (uint16_t) numeric;
-		perm->symbolic = numeric_to_symbolic((uint16_t) numeric);
+		perm->numeric  = numeric;
+		perm->symbolic = numeric_to_symbolic(numeric);
 	}
 
 	/* Runs if TARGET is a valid symbolic notation */

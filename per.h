@@ -26,8 +26,8 @@
 /* Permision from the arg is converted into this struct */
 typedef struct __perm {
 	uint16_t		numeric;
-	char			 *symbolic;
-	_Bool				initialized;
+	char			*symbolic;
+	_Bool			initialized;
 } Perm;
 
 /* Should we treat notations as special? */
