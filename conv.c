@@ -28,30 +28,20 @@ numeric_to_symbolic(uint16_t num) {
 
 uint16_t
 symbolic_to_numeric(char *str) {
-	char special[] = "stST";
-
 	uint16_t numeric = 0;
-	for (unsigned int field = 0; field < 3; field++) {
-		for (unsigned int bit = 0; bit < 3; bit++) {
-			if (str[field * 3 + bit] != '-') {
-				if (specialp) {
-					for (unsigned int i = 0; i < LEN(special); i++) {
-						if (str[field * 3 + bit] == special[i]) {
-							numeric += 01000 * (1 << (2 - field));
-							break;
-						}
-					}
-					if (str[field * 3 + bit] != 'S' &&
-							str[field * 3 + bit] != 'T') {
-						numeric += expt(8, 2 - field) * (1 << (2 - bit));
-					}
-				}
-				else numeric += expt(8, 2 - field) * (1 << (2 - bit));
+
+	for (unsigned int bit = 0; bit < 9; bit++) {
+		if (str[bit] != '-') {
+			if (strchr("stST", str[bit])) {
+				numeric += 01000 * (1 << (2 - (bit/3)));
+			}
+			if (str[bit] != 'S' && str[bit] != 'T') {
+				numeric += (1 << (3*(2 - (bit/3)))) * (1 << (2 - (bit%3)));
 			}
 		}
 	}
 	
-	return (numeric);
+	return numeric;
 } /* End of symbolic_to_numeric() */
 
 /* Converts 3 bits into symbolic */

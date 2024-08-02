@@ -26,8 +26,7 @@
 /* Permision from the arg is converted into this struct */
 typedef struct __perm {
 	uint16_t		numeric;
-	char			 *symbolic;
-	_Bool				initialized;
+	char			*symbolic;
 } Perm;
 
 /* Should we treat notations as special? */
@@ -38,13 +37,10 @@ extern _Bool specialp;
 Perm			 *new_perm_from_value		 (char *target);
 
 /* misc.c */
-int					expt									 (int x, unsigned int exp);
 _Bool				symbolicp							 (char *str);
 
 /* prints.c */
-void				print_numeric					 (Perm *perm);
-void				print_symbolic				 (Perm *perm);
-void				print_verbose					 (Perm *perm);
+void				print_verbose					 (uint16_t numeric);
 void				usage									 ();
 
 /* conv.c */

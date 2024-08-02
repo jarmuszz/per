@@ -41,13 +41,12 @@ main(int argc, char **argv) {
 	if (argc == 3 && (strcmp(argv[1], "-S")) == 0)
 		execl(argv[0], argv[0], "-Svns", argv[2], NULL);
 
-	/* Allocate space for permissions converted into a struct */
-	Perm *perm = calloc(1, sizeof(Perm));
+	Perm *perm = NULL;
 
 	/* Cleaner syntax */
 	char *target = argv[argc-1];
 
-	/* If targer is a `-', read target from stdin */
+	/* If target is a `-', read target from stdin */
 	if (strcmp(target, "-") == 0) {
 		fscanf(stdin, "%s", target);
 	}
@@ -60,16 +59,16 @@ main(int argc, char **argv) {
 				specialp = TRUE;
 				break;
 			case 'n':
-				if (!perm->initialized) perm = new_perm_from_value(target);
+				if (!perm) perm = new_perm_from_value(target);
 				printf("%0*o\n", specialp ? 4 : 3, perm->numeric);
 				break;
 			case 's':
-				if (!perm->initialized) perm = new_perm_from_value(target);
+				if (!perm) perm = new_perm_from_value(target);
 				puts(perm->symbolic);
 				break;
 			case 'v':
-				if (!perm->initialized) perm = new_perm_from_value(target);
-				print_verbose(perm);
+				if (!perm) perm = new_perm_from_value(target);
+				print_verbose(perm->numeric);
 				break;
 			case 'h':
 				usage();
@@ -94,7 +93,7 @@ new_perm_from_value(char *target) {
 	long numeric = strtol(target, &endptr, 8);
 
 	/* Exit if ``NUMERIC'' is negative or is longer than ``BITN'' bits	*/
-	if (numeric < 0 || (numeric >> bitn) != 0)	{
+	if (numeric >> bitn) {
 		usage();
 		ERR(1, EINVAL, "Incorrect numeric notation");
 	}
@@ -104,8 +103,8 @@ new_perm_from_value(char *target) {
 	 * ``TARGET'' is a number.
 	 */
 	if (*endptr == '\0') {
-		perm->numeric = (uint16_t) numeric;
-		perm->symbolic = numeric_to_symbolic((uint16_t) numeric);
+		perm->numeric  = numeric;
+		perm->symbolic = numeric_to_symbolic(numeric);
 	}
 
 	/* Runs if ``TARGET'' is a valid path */
@@ -121,11 +120,10 @@ new_perm_from_value(char *target) {
 			ERR(errno, errno, "Race condition cought, file %s modified.", target);
 		}
 
-		numeric = statbuf.st_mode & (S_IRWXU + S_IRWXG + S_IRWXO);
-		if (specialp) numeric += statbuf.st_mode & 07000;
+		numeric = statbuf.st_mode & (0777 + (specialp ? 07000 : 0));
 
-		perm->numeric = (uint16_t) numeric;
-		perm->symbolic = numeric_to_symbolic((uint16_t) numeric);
+		perm->numeric  = numeric;
+		perm->symbolic = numeric_to_symbolic(numeric);
 	}
 
 	/* Runs if TARGET is a valid symbolic notation */
@@ -138,8 +136,6 @@ new_perm_from_value(char *target) {
 		usage();
 		ERR(1, EINVAL, "%s", target);
 	}
-
-	perm->initialized = TRUE;
 
 	return perm;
 } /* End of new_perm_from_value() */
