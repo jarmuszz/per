@@ -41,7 +41,6 @@ main(int argc, char **argv) {
 	if (argc == 3 && (strcmp(argv[1], "-S")) == 0)
 		execl(argv[0], argv[0], "-Svns", argv[2], NULL);
 
-	/* Allocate space for permissions converted into a struct */
 	Perm *perm = NULL;
 
 	/* Cleaner syntax */

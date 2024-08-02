@@ -30,7 +30,7 @@ uint16_t
 symbolic_to_numeric(char *str) {
 	uint16_t numeric = 0;
 
-	for (unsigned bit = 0; bit < 9; bit++) {
+	for (unsigned int bit = 0; bit < 9; bit++) {
 		if (str[bit] != '-') {
 			if (strchr("stST", str[bit])) {
 				numeric += 01000 * (1 << (2 - (bit/3)));
