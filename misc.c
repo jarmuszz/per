@@ -16,32 +16,15 @@ symbolicp(char *str) {
 	char chars_spec[] = "sst";
 	char chars_spec_upp[] = "SST";
 
-	if (strlen(str) != 9) {
-		usage();
-		ERR(1, EINVAL, "%s", str);
-	}
+	if (strlen(str) != 9) return (FALSE);
 
-	if (specialp) {
-		for (unsigned int i = 0; i <= strlen(str)-1; i++) {
-			if (str[i] != chars[i % 3] && str[i] != '-') {
-				if ((i + 1) % 3 == 0) {
-					if (str[i] != chars_spec[i / 3] &&
-							str[i] != chars_spec_upp[i / 3]) {
-						return (FALSE);
-					}
-				}
-				else return (FALSE);
-			}
-		}
-	}
-	else {
-		for (unsigned int i = 0; i <= strlen(str)-1; i++) {
-			if (str[i] != chars[i % 3] && str[i] != '-') {
+	for (unsigned int i = 0; i <= strlen(str)-1; i++) {
+		if (str[i] != chars[i % 3] && str[i] != '-') {
+			if (((i + 1) % 3 != 0 || !specialp) ||
+			(str[i] != chars_spec[i / 3] && str[i] != chars_spec_upp[i / 3]))
 				return (FALSE);
-			}
 		}
 	}
-
 
 	return (TRUE);
 } /* End of symbolicp() */
