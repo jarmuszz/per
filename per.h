@@ -36,9 +36,6 @@ extern _Bool specialp;
 /* per.c */
 Perm			 *new_perm_from_value		 (char *target);
 
-/* misc.c */
-_Bool				symbolicp							 (char *str);
-
 /* prints.c */
 void				print_verbose					 (uint16_t numeric);
 void				usage									 ();

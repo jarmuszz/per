@@ -93,7 +93,7 @@ new_perm_from_value(char *target) {
 		ERR(1, EINVAL, "Incorrect numeric notation");
 	}
 
- 	/* Is ``TARGET'' a number? */
+	/* Is ``TARGET'' a number? */
 	if (*endptr == '\0') {
 		perm->numeric  = numeric;
 		perm->symbolic = numeric_to_symbolic(numeric);
@@ -104,13 +104,10 @@ new_perm_from_value(char *target) {
 		perm->numeric  = numeric;
 		perm->symbolic = numeric_to_symbolic(numeric);
 	}
-	/* Is ``TARGET'' valid symbolic notation? */
-	else if (symbolicp(target)) {
+	/* Assuming ``TARGET'' is symbolic notation */
+	else {
 		perm->numeric = symbolic_to_numeric(target);
 		perm->symbolic = target;
-	} else {
-		usage();
-		ERR(1, EINVAL, "%s", target);
 	}
 
 	return perm;
