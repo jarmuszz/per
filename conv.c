@@ -9,6 +9,7 @@
  */
 
 #include "per.h"
+#include <ctype.h>
 
 // Format access mode into a rwxrwxrwx string
 char *
@@ -30,7 +31,20 @@ uint16_t
 symbolic_to_numeric(char *str) {
 	uint16_t numeric = 0;
 
+	if (strlen(str) != 9) {
+		usage();
+		ERR(1, EINVAL, "%s", str);
+	}
+
 	for (unsigned int bit = 0; bit < 9; bit++) {
+		char chars[] = "rwxsst";
+		if (str[bit] != chars[bit % 3] && str[bit] != '-') {
+			if ((bit + 1) % 3 != 0 || !specialp || tolower(str[bit]) != chars[3 + (bit / 3)]) {
+				usage();
+				ERR(1, EINVAL, "%s", str);
+			}
+		}
+
 		if (str[bit] != '-') {
 			if (strchr("stST", str[bit])) {
 				numeric += 01000 * (1 << (2 - (bit/3)));

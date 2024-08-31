@@ -23,8 +23,6 @@ _Bool specialp = FALSE;
 
 int
 main(int argc, char **argv) {
-
-	/* Exit if no args */
 	if (argc == 1) {
 		usage();
 		exit(1);
@@ -84,57 +82,32 @@ main(int argc, char **argv) {
 
 Perm *
 new_perm_from_value(char *target) {
-	/* N of bits (12 for special, 9 for normal) */
-	int bitn = specialp ? 12 : 9;
-	
-	/* calloc will set mem to 0 */
 	Perm *perm = calloc(1, sizeof(Perm));
 	char *endptr;
 	long numeric = strtol(target, &endptr, 8);
+	struct stat statbuf;
 
 	/* Exit if ``NUMERIC'' is negative or is longer than ``BITN'' bits	*/
-	if (numeric >> bitn) {
+	if (numeric >> (specialp ? 12 : 9)) {
 		usage();
 		ERR(1, EINVAL, "Incorrect numeric notation");
 	}
 
-	/*
-	 * Checking if there weren't any strings in ``TARGET'' i.e. runs if
-	 * ``TARGET'' is a number.
-	 */
+	/* Is ``TARGET'' a number? */
 	if (*endptr == '\0') {
 		perm->numeric  = numeric;
 		perm->symbolic = numeric_to_symbolic(numeric);
 	}
-
-	/* Runs if ``TARGET'' is a valid path */
-	else if (!access(target, F_OK)) {
-		struct stat statbuf;
-
-		/*
-		 * Possible race condition, file could've been modified between access()
-		 * and stat().
-		 */
-		if (stat(target, &statbuf) != 0) {
-			usage();
-			ERR(errno, errno, "Race condition cought, file %s modified.", target);
-		}
-
+	/* Is ``TARGET'' a valid path? */
+	else if (stat(target, &statbuf) != -1) {
 		numeric = statbuf.st_mode & (0777 + (specialp ? 07000 : 0));
-
 		perm->numeric  = numeric;
 		perm->symbolic = numeric_to_symbolic(numeric);
 	}
-
-	/* Runs if TARGET is a valid symbolic notation */
-	else if (symbolicp(target)) {
+	/* Assuming ``TARGET'' is symbolic notation */
+	else {
 		perm->numeric = symbolic_to_numeric(target);
 		perm->symbolic = target;
-	}
-
-	else {
-		usage();
-		ERR(1, EINVAL, "%s", target);
 	}
 
 	return perm;
